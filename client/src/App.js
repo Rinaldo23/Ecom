@@ -4,10 +4,11 @@ import Footer from "./components/Footer/Footer";
 import Home from './pages/Home/Home'
 import Products from './pages/Products/Products'
 import Product from './pages/Product/Product'
+import './App.scss'
 
 function App() {
   return (
-    <>
+    <div className="app">
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -17,7 +18,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
