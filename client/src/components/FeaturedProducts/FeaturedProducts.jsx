@@ -1,20 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
-// import useFetch from "../../hooks/useFetch";
+import axios from "axios";
 
 const FeaturedProducts = ({type}) => {
-  const [products, setProducts] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch("https://fakestoreapi.com/products?limit=4");
-      const data = await res.json();
-      console.log(data);
-      setProducts(data);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_API_URL + `/products?populate=*&[filters][type][$eq]=${type}`,
+          {
+            headers: {
+              Authorization: "bearer" + process.env.REACT_APP_API_TOKEN,
+            },
+          }
+        );
+        setData(res.data.data);
+        // console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    fetchProducts();
+    fetchData();
   }, []);
+
+  console.log(data)
 
   return (
     <div className="featuredProducts">
@@ -29,7 +41,7 @@ const FeaturedProducts = ({type}) => {
         </p>
       </div>
       <div className="bottom">
-        {products?.map((item) => (
+        {data?.map((item) => (
           <Card item={item} key={item.id} />
         ))}
       </div>
