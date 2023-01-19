@@ -2,7 +2,7 @@ import React from "react";
 import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useDispatch, useSelector} from "react-redux";
-import {removeFromCart} from "../../redux/cartReducer";
+import {removeFromCart, resetCart} from "../../redux/cartReducer";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
@@ -10,12 +10,12 @@ const Cart = () => {
 
   const totalPrice = () => {
     let total = 0;
-    products.forEach((item)=>{
+    products.forEach((item) => {
       total += item.quantity * item.price;
-    })
+    });
 
     return total.toFixed(2);
-  }
+  };
 
   return (
     <div className="cart">
@@ -42,7 +42,9 @@ const Cart = () => {
         <span>${totalPrice()}</span>
       </div>
       <button>PROCEED TO CHECKOUT</button>
-      <span className="reset"> Reset Cart </span>
+      <span className="reset" onClick={() => dispatch(resetCart())}>
+        Reset Cart
+      </span>
     </div>
   );
 };
