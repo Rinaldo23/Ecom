@@ -47,6 +47,14 @@
       "type": "boolean",
       "default": false
     },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "normal",
+        "featured",
+        "trending"
+      ]
+    },
     "categories": {
       "type": "relation",
       "relation": "manyToMany",
@@ -56,22 +64,8 @@
     "sub_categories": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::category.category",
-      "inversedBy": "products"
-    },
-    "Product": {
-      "type": "relation",
-      "relation": "manyToMany",
       "target": "api::sub-category.sub-category",
-      "mappedBy": "products"
-    },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "normal",
-        "featured",
-        "trending"
-      ]
+      "inversedBy": "products"
     }
   }
 }
