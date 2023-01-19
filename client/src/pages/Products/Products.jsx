@@ -8,7 +8,7 @@ import "./Products.scss";
 const Products = () => {
   const catId = parseInt(useParams().id);
   const [maxPrice, setMaxPrice] = useState(1000);
-  const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState("asc");
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
   const {data, loading, error} = useFetch(`/sub-categories`);
@@ -47,7 +47,7 @@ const Products = () => {
             <span>0</span>
             <input
               type="range"
-              min={0}
+              min={1}
               max={1000}
               onChange={(e) => setMaxPrice(e.target.value)}
             />
@@ -84,7 +84,7 @@ const Products = () => {
           src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List products={data} subCats={selectedSubCats} maxPrice={maxPrice} />
+        <List subCats={selectedSubCats} maxPrice={maxPrice} sort={sort}/>
       </div>
     </div>
   );
