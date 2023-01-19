@@ -11,9 +11,7 @@ const Products = () => {
   const [sort, setSort] = useState(null);
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
-  const {data, loading, error} = useFetch(
-    `/sub-categories`
-  );
+  const {data, loading, error} = useFetch(`/sub-categories`);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -86,7 +84,7 @@ const Products = () => {
           src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List products={data} subCats={selectedSubCats} catId={catId} />
+        <List products={data} subCats={selectedSubCats} maxPrice={maxPrice} />
       </div>
     </div>
   );
