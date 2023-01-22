@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useDispatch, useSelector} from "react-redux";
 import {removeFromCart, resetCart} from "../../redux/cartReducer";
 import {loadStripe} from "@stripe/stripe-js";
 import {makeRequest} from "../../makeRequest";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from "react-router-dom";
+import {useEffect} from "react";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
@@ -13,7 +14,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.currentUser);
-  console.log("user", user);
+  // console.log("user", user);
 
   const totalPrice = () => {
     let total = 0;
@@ -40,12 +41,18 @@ const Cart = () => {
         await stripe.redirectToCheckout({
           sessionId: res.data.stripeSession.id,
         });
+        
+        // const a = await clearCart();
+
       } catch (err) {
         console.log(err);
       }
-      // dispatch(resetCart());
     }
   };
+
+  // const clearCart = () => {
+  //   return dispatch(resetCart());
+  // }
 
   return (
     <div className="cart">

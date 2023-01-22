@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Categories from "../../components/Categories/Categories";
 import Contact from "../../components/Contact/Contact";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
 import Slider from "../../components/Slider/Slider";
+import { resetCart } from "../../redux/cartReducer";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const [url, setUrl] = useState(window.location.href);
+  console.log(url);
+
+  useEffect(() => {
+    const msg = window.location.href.split("?")[1];
+    console.log(msg);
+    if (msg == "success=true") {
+      // alert("Order Placed Syccessfully!");
+      dispatch(resetCart());
+    }
+  }, [url]);
+
   return (
     <div>
       <Slider />
