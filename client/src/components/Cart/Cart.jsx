@@ -3,12 +3,17 @@ import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useDispatch, useSelector} from "react-redux";
 import {removeFromCart, resetCart} from "../../redux/cartReducer";
-import { loadStripe } from "@stripe/stripe-js";
-import { makeRequest } from "../../makeRequest";
+import {loadStripe} from "@stripe/stripe-js";
+import {makeRequest} from "../../makeRequest";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.currentUser);
+  console.log("user", user);
 
   const totalPrice = () => {
     let total = 0;
@@ -24,17 +29,21 @@ const Cart = () => {
   );
 
   const handlePayment = async () => {
-    try {
-      const stripe = await stripePromise;
-      const res = await makeRequest.post("/orders", {
-        products,
-      });
-      await stripe.redirectToCheckout({
-        sessionId: res.data.stripeSession.id,
-      });
-
-    } catch (err) {
-      console.log(err);
+    if (!user) {
+      navigate("/login");
+    } else {
+      try {
+        const stripe = await stripePromise;
+        const res = await makeRequest.post("/orders", {
+          products,
+        });
+        await stripe.redirectToCheckout({
+          sessionId: res.data.stripeSession.id,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      // dispatch(resetCart());
     }
   };
 

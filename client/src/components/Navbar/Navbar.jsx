@@ -5,13 +5,26 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Cart from "../Cart/Cart";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { logout } from "../../redux/authReducer";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const products = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate();
+  //console.log(products)
+  const handleLogout = () => {
+    console.log("click");
+    console.log(user);
+    if (user) {
+      dispatch(logout());
+      navigate("/");
+    }
+  };
 
   return (
     <div className="navbar">
@@ -26,12 +39,12 @@ const Navbar = () => {
             <KeyboardArrowDownIcon />
           </div>
           <div className="item">
-            <Link className="link" to="/products/1">
+            <Link className="link" to="/products/5">
               Women
             </Link>
           </div>
           <div className="item">
-            <Link className="link" to="/products/2">
+            <Link className="link" to="/products/6">
               Men
             </Link>
           </div>
@@ -53,14 +66,16 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="item">
-            <Link className="link" to="/">
-              About
+            <Link className="link" to="/register">
+              Register
             </Link>
           </div>
           <div className="item">
-            <Link className="link" to="/">
-              Contact
-            </Link>
+            {!user ? <Link className="link" to="/login">
+              Login
+            </Link> : <Link className="link" to="/login" onClick={handleLogout}>
+              Logout
+            </Link>}
           </div>
           <div className="item">
             <Link className="link" to="/">
@@ -69,7 +84,9 @@ const Navbar = () => {
           </div>
           <div className="icons">
             <SearchIcon />
-            <PersonOutlineOutlinedIcon />
+            <span>
+              <PersonOutlineOutlinedIcon />
+            </span>
             <FavoriteBorderOutlinedIcon />
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <ShoppingCartOutlinedIcon />
