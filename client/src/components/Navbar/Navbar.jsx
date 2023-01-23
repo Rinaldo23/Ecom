@@ -78,8 +78,8 @@ const Navbar = () => {
             </Link>}
           </div>
           <div className="item">
-            <Link className="link" to="/">
-              Stores
+            <Link className="link" to="/order">
+              Orders
             </Link>
           </div>
           <div className="icons">
