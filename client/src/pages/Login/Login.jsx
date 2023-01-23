@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {Link, useNavigate, useRouteError} from "react-router-dom";
-import {makeRequest} from "../../makeRequest";
+import {Link, useNavigate} from "react-router-dom";
 import {loginCall} from "../../redux/apiCalls";
 import {loginSuccess} from "../../redux/authReducer";
 import TextField from "@mui/material/TextField";
