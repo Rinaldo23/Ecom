@@ -39,12 +39,12 @@ const Navbar = () => {
             <KeyboardArrowDownIcon />
           </div>
           <div className="item">
-            <Link className="link" to="/products/5">
+            <Link className="link" to="/products/6">
               Women
             </Link>
           </div>
           <div className="item">
-            <Link className="link" to="/products/6">
+            <Link className="link" to="/products/5">
               Men
             </Link>
           </div>

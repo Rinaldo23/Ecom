@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
 import Tables from "../../components/Tables/Tables";
 import useFetch from "../../hooks/useFetch";
@@ -28,16 +28,6 @@ const Order = () => {
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({theme}) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }));
-
   return (
     <div>
       <TableContainer component={Paper}>
@@ -53,7 +43,7 @@ const Order = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {loading
+            {error ? "Something Went Wrong!! " : loading
               ? "Loading Orders"
               : data !== null
               ? data.map((order) => <Tables key={order.id} order={order} />)
