@@ -9,11 +9,11 @@ import { resetCart } from "../../redux/cartReducer";
 const Home = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState(window.location.href);
-  console.log(url);
+  // console.log(url);
 
   useEffect(() => {
     const msg = window.location.href.split("?")[1];
-    console.log(msg);
+    // console.log(msg);
     if (msg == "success=true") {
       // alert("Order Placed Syccessfully!");
       dispatch(resetCart());
