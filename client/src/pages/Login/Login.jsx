@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {useNavigate, useRouteError} from "react-router-dom";
+import {Link, useNavigate, useRouteError} from "react-router-dom";
 import {makeRequest} from "../../makeRequest";
 import {loginCall} from "../../redux/apiCalls";
 import {loginSuccess} from "../../redux/authReducer";
-// import "./Login.scss";
+import TextField from "@mui/material/TextField";
+import "./Login.scss";
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const Login = () => {
         console.log("User token", response.data.jwt);
 
         dispatch(loginSuccess(response.data.user));
-        navigate("/")
+        navigate("/");
       })
       .catch((error) => {
         console.log("An error occurred:", error.response);
@@ -44,26 +46,36 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <br />
-      <label>
-        Email:
-        <input
-          type="text"
-          name="identifier"
-          onChange={(e) => handleChange(e)}
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => handleChange(e)}
-        />
-      </label>
-      <br />
-      <button>Login</button>
+      <div className="login">
+        <div className="login-container">
+          <TextField
+            fullWidth
+            type="text"
+            name="identifier"
+            size="small"
+            margin="dense"
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            onChange={(e) => handleChange(e)}
+          />
+          <TextField
+            fullWidth
+            size="small"
+            margin="dense"
+            type="password"
+            name="password"
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            onChange={(e) => handleChange(e)}
+          />
+          <button>Login</button>
+          <Link className="link" to="/register">
+            <span>Register</span>
+          </Link>
+        </div>
+      </div>
     </form>
   );
 };
