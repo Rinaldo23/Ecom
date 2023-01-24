@@ -10,14 +10,14 @@
         align-items: center;
         padding: 20px;
         margin-top: 250px;
-        height: 220px;
+        height: 250px;
         border-radius: 20px;
         background-color: rgb(245, 243, 243);
 
         button{
             margin-top: 10px;
             width: 100%;
-            height: 40px;
+            min-height: 40px;
             background-color: rgb(163, 163, 236);
             color: whitesmoke;
             font-weight: 700;

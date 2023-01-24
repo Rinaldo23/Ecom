@@ -73,6 +73,9 @@ const Login = () => {
           <Link className="link" to="/register">
             <span>Register</span>
           </Link>
+          <Link className="link" to="/home">
+            <span>Home</span>
+          </Link>
         </div>
       </div>
     </form>

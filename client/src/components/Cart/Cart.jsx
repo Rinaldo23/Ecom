@@ -32,19 +32,20 @@ const Cart = () => {
   const handlePayment = async () => {
     if (!user) {
       navigate("/login");
+    } else if (user && products.length === 0) {
+      alert("Please add products in your cart!");
     } else {
       try {
         const stripe = await stripePromise;
         const res = await makeRequest.post("/orders", {
           products,
-          email : user.email         
+          email: user.email,
         });
         await stripe.redirectToCheckout({
           sessionId: res.data.stripeSession.id,
         });
-        
-        // const a = await clearCart();
 
+        // const a = await clearCart();
       } catch (err) {
         console.log(err);
       }
